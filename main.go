@@ -121,6 +121,12 @@ func createDeck(w http.ResponseWriter, r *http.Request) {
 		jokers = parts[1] == "true"
 	}
 
+	if nbrPaquet > 10 {
+
+		http.Error(w, "Too many Deckes", http.StatusInternalServerError)
+		return
+	}
+
 	deckID := uuid.New().String()
 	cards := generateCards(nbrPaquet, jokers)
 
